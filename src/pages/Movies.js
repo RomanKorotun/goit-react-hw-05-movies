@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { serviceSearchMovies } from 'api';
 import { SearchMovies } from 'components/SearchMovies/SearchMovies';
-import { useSearchParams } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
 import { Container, MainSection } from 'components/Layout/Layout.stylled';
