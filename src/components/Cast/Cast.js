@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { serviseCast } from 'api';
 import React from 'react';
