@@ -2,9 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import 'modern-normalize';
 
 export const GlobalStyle = createGlobalStyle`
-/* body {
-  background-color: #d3d3d3;
-} */
 
 h1,
 h2,

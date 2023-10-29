@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { serviseCast } from 'api';
 import React from 'react';
@@ -12,13 +12,13 @@ export const Cast = () => {
   const [error, setError] = useState(false);
   const [castInfo, setCastInfo] = useState();
   const { movieId } = useParams();
+
   useEffect(() => {
     async function getCast() {
       try {
         setError(false);
         setLoading(true);
         const data = await serviseCast(movieId);
-        console.log(data);
         setCastInfo(data.cast);
       } catch (error) {
         setError(true);

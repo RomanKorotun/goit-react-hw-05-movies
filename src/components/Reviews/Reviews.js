@@ -18,7 +18,6 @@ export const Reviews = () => {
         setError(false);
         setLoading(true);
         const data = await serviceReviews(movieId);
-        console.log(data.results);
         if (data.results.length === 0) {
           setIsEmpty(true);
         }

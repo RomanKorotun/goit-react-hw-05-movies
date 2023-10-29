@@ -4,27 +4,29 @@ import { SearchMovies } from 'components/SearchMovies/SearchMovies';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
 import { Container, MainSection } from 'components/Layout/Layout.stylled';
+import { useSearchParams } from 'react-router-dom';
 
 export default function Movies() {
-  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [searchMovies, setSearchMovies] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryValue = searchParams.get('query') ?? '';
+
   const onSubmit = inputValue => {
-    setQuery(inputValue);
-    setSearchMovies([]);
+    setSearchParams({ query: inputValue });
   };
 
   useEffect(() => {
-    if (query === '') {
+    if (queryValue === '') {
       return;
     }
     async function getMovies() {
       try {
         setError(false);
         setLoading(true);
-        const data = await serviceSearchMovies(query);
+        const data = await serviceSearchMovies(queryValue);
         setSearchMovies(data.results);
       } catch (error) {
         setError(true);
@@ -33,7 +35,7 @@ export default function Movies() {
       }
     }
     getMovies();
-  }, [query]);
+  }, [queryValue]);
 
   return (
     <MainSection>
