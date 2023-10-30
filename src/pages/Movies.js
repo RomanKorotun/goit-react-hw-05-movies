@@ -37,6 +37,10 @@ export default function Movies() {
     getMovies();
   }, [queryValue]);
 
+  const inputStyle = {
+    marginBottom: '10px',
+  };
+
   return (
     <MainSection>
       <Container>
@@ -48,7 +52,7 @@ export default function Movies() {
             evt.target.reset();
           }}
         >
-          <input name="searchQuery" type="text" />
+          <input style={inputStyle} name="searchQuery" type="text" />
           <button type="submit">Search</button>
         </form>
         {loading && <BeatLoader color="#36d7b7" />}

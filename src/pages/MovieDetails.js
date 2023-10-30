@@ -15,7 +15,6 @@ export default function MovieDetails() {
   const { movieId } = useParams();
 
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     async function getMovie() {
@@ -42,12 +41,10 @@ export default function MovieDetails() {
     marginBottom: '10px',
   };
 
-  console.log(location);
-
   return (
     <MainSection>
       <Container>
-        <Link style={styleLink} to={location.state?.from}>
+        <Link style={styleLink} to={location.state?.from ?? '/'}>
           <ImArrowLeft />
           Go back
         </Link>

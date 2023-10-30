@@ -7,7 +7,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
 import { ListItemCast } from './Cast.styled';
 
-export const Cast = () => {
+export const Cast = ({ a }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [castInfo, setCastInfo] = useState();
