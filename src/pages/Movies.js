@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { serviceSearchMovies } from 'api';
-import { SearchMovies } from 'components/SearchMovies/SearchMovies';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
 import { Container, MainSection } from 'components/Layout/Layout.stylled';
 import { useSearchParams } from 'react-router-dom';
+import { Form } from 'components/Form/Form';
 
 export default function Movies() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  const [searchMovies, setSearchMovies] = useState([]);
+  const [moviesList, setMoviesList] = useState([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryValue = searchParams.get('query') ?? '';
@@ -27,7 +28,7 @@ export default function Movies() {
         setError(false);
         setLoading(true);
         const data = await serviceSearchMovies(queryValue);
-        setSearchMovies(data.results);
+        setMoviesList(data.results);
       } catch (error) {
         setError(true);
       } finally {
@@ -37,29 +38,13 @@ export default function Movies() {
     getMovies();
   }, [queryValue]);
 
-  const inputStyle = {
-    marginBottom: '10px',
-  };
-
   return (
     <MainSection>
       <Container>
-        <form
-          onSubmit={evt => {
-            evt.preventDefault();
-            const { searchQuery } = evt.target.elements;
-            onSubmit(searchQuery.value);
-            evt.target.reset();
-          }}
-        >
-          <input style={inputStyle} name="searchQuery" type="text" />
-          <button type="submit">Search</button>
-        </form>
+        <Form onSubmit={onSubmit} />
         {loading && <BeatLoader color="#36d7b7" />}
         {error && <Error>Error... Please reload the page!</Error>}
-        {searchMovies.length > 0 && (
-          <SearchMovies searchMovies={searchMovies} />
-        )}
+        {moviesList.length > 0 && <MoviesList moviesList={moviesList} />}
       </Container>
     </MainSection>
   );

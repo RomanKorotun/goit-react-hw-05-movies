@@ -7,6 +7,10 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
 import { ListItemCast } from './Cast.styled';
 
+const defaultPoster =
+  'https://th.bing.com/th/id/OIP.Lr_j_PgqTGzKxJTeIwajVwHaLH?pid=ImgDet&rs=1';
+const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
+
 export const Cast = ({ a }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -29,8 +33,6 @@ export const Cast = ({ a }) => {
     getCast();
   }, [movieId]);
 
-  const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
-
   return (
     <React.Fragment>
       {loading && <BeatLoader color="#36d7b7" />}
@@ -40,7 +42,11 @@ export const Cast = ({ a }) => {
           {castInfo.map(({ profile_path, name, character, cast_id }) => (
             <ListItemCast key={cast_id}>
               <img
-                src={`${BASE_URL_IMG}${profile_path}`}
+                src={
+                  profile_path
+                    ? `${BASE_URL_IMG}${profile_path}`
+                    : defaultPoster
+                }
                 style={{ width: '70px', height: '100px' }}
                 alt={name}
               />

@@ -8,10 +8,19 @@ import { MovieInfo } from 'components/MovieInfo/MovieInfo';
 import { Link } from 'react-router-dom';
 import { ImArrowLeft } from 'react-icons/im';
 
+const styleLink = {
+  display: 'flex',
+  gap: '2px',
+  alignItems: 'center',
+  textDecoration: 'none',
+  fontSize: '20px',
+  marginBottom: '10px',
+};
+
 export default function MovieDetails() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
 
   const location = useLocation();
@@ -31,15 +40,6 @@ export default function MovieDetails() {
     }
     getMovie();
   }, [movieId]);
-
-  const styleLink = {
-    display: 'flex',
-    gap: '2px',
-    alignItems: 'center',
-    textDecoration: 'none',
-    fontSize: '20px',
-    marginBottom: '10px',
-  };
 
   return (
     <MainSection>

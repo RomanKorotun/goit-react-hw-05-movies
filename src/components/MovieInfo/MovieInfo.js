@@ -13,16 +13,19 @@ import {
   AdditionalInfoCard,
 } from './MovieInfo.styled';
 
+const defaultPoster =
+  'https://th.bing.com/th/id/OIP.Lr_j_PgqTGzKxJTeIwajVwHaLH?pid=ImgDet&rs=1';
+const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
+
 export const MovieInfo = ({
   movie: { poster_path, vote_average, overview, title, genres },
   movieId,
 }) => {
-  const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
   return (
     <React.Fragment>
       <MovieContainer>
         <img
-          src={`${BASE_URL_IMG}${poster_path}`}
+          src={poster_path ? `${BASE_URL_IMG}${poster_path}` : defaultPoster}
           style={{ width: '200px', height: '300px' }}
           alt={title}
         />
