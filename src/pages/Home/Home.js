@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { serviceTrandingMovies } from 'api';
-import BeatLoader from 'react-spinners/BeatLoader';
+import { BeatLoaderStyled } from './Home.styled';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 import { Error } from 'components/Error.styled';
-import { Container, MainSection } from 'components/Layout/Layout.stylled';
+import { Title } from './Home.styled';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ export default function Home() {
         setError(false);
         setLoading(true);
         const data = await serviceTrandingMovies();
+
         setMoviesList(data.results);
       } catch (error) {
         setError(true);
@@ -26,22 +27,16 @@ export default function Home() {
     getMovies();
   }, []);
 
-  const titleStyle = {
-    marginBottom: '20px',
-  };
-
   return (
-    <MainSection>
-      <Container>
-        {loading && <BeatLoader color="#36d7b7" />}
-        {error && <Error>Error... Please reload the page!</Error>}
-        {moviesList.length > 1 && (
-          <>
-            <h1 style={titleStyle}>Trending today</h1>
-            <MoviesList moviesList={moviesList} />
-          </>
-        )}
-      </Container>
-    </MainSection>
+    <React.Fragment>
+      {loading && <BeatLoaderStyled color="#36d7b7" />}
+      {error && <Error>Error... Please reload the page!</Error>}
+      {moviesList.length > 1 && (
+        <>
+          <Title>Trending Movies</Title>
+          <MoviesList moviesList={moviesList} />
+        </>
+      )}
+    </React.Fragment>
   );
 }

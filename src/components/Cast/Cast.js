@@ -3,15 +3,19 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { serviseCast } from 'api';
 import React from 'react';
-import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
-import { ListItemCast } from './Cast.styled';
+import {
+  BeatLoaderStyled,
+  CastInfo,
+  ListCast,
+  ListItemCast,
+} from './Cast.styled';
 
 const defaultPoster =
   'https://th.bing.com/th/id/OIP.Lr_j_PgqTGzKxJTeIwajVwHaLH?pid=ImgDet&rs=1';
 const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
 
-export const Cast = ({ a }) => {
+export const Cast = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [castInfo, setCastInfo] = useState();
@@ -35,10 +39,10 @@ export const Cast = ({ a }) => {
 
   return (
     <React.Fragment>
-      {loading && <BeatLoader color="#36d7b7" />}
+      {loading && <BeatLoaderStyled color="#36d7b7" />}
       {error && <Error>Error... Please reload the page!</Error>}
       {castInfo && (
-        <ul>
+        <ListCast>
           {castInfo.map(({ profile_path, name, character, cast_id }) => (
             <ListItemCast key={cast_id}>
               <img
@@ -47,14 +51,16 @@ export const Cast = ({ a }) => {
                     ? `${BASE_URL_IMG}${profile_path}`
                     : defaultPoster
                 }
-                style={{ width: '70px', height: '100px' }}
+                style={{ width: '100%' }}
                 alt={name}
               />
-              <p>{name}</p>
-              <p>Character: {character}</p>
+              <CastInfo>
+                <p>{name}</p>
+                <p>Character: {character}</p>
+              </CastInfo>
             </ListItemCast>
           ))}
-        </ul>
+        </ListCast>
       )}
     </React.Fragment>
   );

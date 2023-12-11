@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import {
   Title,
   GenresList,
@@ -11,6 +11,11 @@ import {
   SubTitle,
   UserScore,
   AdditionalInfoCard,
+  GenresCard,
+  NavLinkStyled,
+  Image,
+  ReleaseDate,
+  AdditionalList,
 } from './MovieInfo.styled';
 
 const defaultPoster =
@@ -18,45 +23,50 @@ const defaultPoster =
 const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
 
 export const MovieInfo = ({
-  movie: { poster_path, vote_average, overview, title, genres },
+  movie: { poster_path, vote_average, overview, title, genres, release_date },
   movieId,
 }) => {
   return (
     <React.Fragment>
       <MovieContainer>
-        <img
+        <Image
           src={poster_path ? `${BASE_URL_IMG}${poster_path}` : defaultPoster}
-          style={{ width: '200px', height: '300px' }}
+          style={{ width: '345px', height: '517px' }}
           alt={title}
         />
         <div>
           <Title>{title}</Title>
+          <ReleaseDate>Release date: {release_date}</ReleaseDate>
           <UserScore>User Score: {Math.round(vote_average * 10)}%</UserScore>
           <OverwievCard>
             <OverwievTitle>Overview</OverwievTitle>
             <p>{overview}</p>
           </OverwievCard>
-          <div>
+          <GenresCard>
             <GenresTitle> Genres</GenresTitle>
             <GenresList>
               {genres.map(({ name }) => (
                 <li key={name}>{name}</li>
               ))}
             </GenresList>
-          </div>
+          </GenresCard>
+          <AdditionalInfoCard>
+            <SubTitle>Additional information</SubTitle>
+            <AdditionalList>
+              <ListItem>
+                <NavLinkStyled to={`/movies/${movieId}/cast`}>
+                  Cast
+                </NavLinkStyled>
+              </ListItem>
+              <ListItem>
+                <NavLinkStyled to={`/movies/${movieId}/reviews`}>
+                  Reviews
+                </NavLinkStyled>
+              </ListItem>
+            </AdditionalList>
+          </AdditionalInfoCard>
         </div>
       </MovieContainer>
-      <AdditionalInfoCard>
-        <SubTitle>Additional information</SubTitle>
-        <ul>
-          <ListItem>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-          </ListItem>
-          <ListItem>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-          </ListItem>
-        </ul>
-      </AdditionalInfoCard>
       <Outlet />
     </React.Fragment>
   );

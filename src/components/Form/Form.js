@@ -1,8 +1,8 @@
-import { Input } from './Form.styled';
+import { Button, FormStyled, Input } from './Form.styled';
 
 export const Form = ({ onSubmit }) => {
   return (
-    <form
+    <FormStyled
       onSubmit={evt => {
         evt.preventDefault();
         const { searchQuery } = evt.target.elements;
@@ -11,7 +11,7 @@ export const Form = ({ onSubmit }) => {
       }}
     >
       <Input name="searchQuery" type="text" />
-      <button type="submit">Search</button>
-    </form>
+      <Button type="submit">Search</Button>
+    </FormStyled>
   );
 };

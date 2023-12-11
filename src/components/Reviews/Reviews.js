@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { serviceReviews } from 'api';
-import BeatLoader from 'react-spinners/BeatLoader';
 import { Error } from 'components/Error.styled';
-import { TitleReviews } from './Reviews.styled';
+import {
+  BeatLoaderStyled,
+  ReviewsDesc,
+  ReviewsNotFound,
+  TitleReviews,
+} from './Reviews.styled';
 import { ListItemReviews } from './Reviews.styled';
 
 export const Reviews = () => {
@@ -32,15 +36,19 @@ export const Reviews = () => {
   }, [movieId]);
   return (
     <React.Fragment>
-      {loading && <BeatLoader color="#36d7b7" />}
+      {loading && <BeatLoaderStyled color="#36d7b7" />}
       {error && <Error>Error... Please reload the page!</Error>}
-      {isEmpty && <div>We don't have any reviews fot this movie</div>}
+      {isEmpty && (
+        <ReviewsNotFound>
+          We don't have any reviews fot this movie!
+        </ReviewsNotFound>
+      )}
       {reviewsInfo && (
         <ul>
           {reviewsInfo.map(({ content, author, id }) => (
             <ListItemReviews key={id}>
               <TitleReviews>Author: {author}</TitleReviews>
-              <p>{content}</p>
+              <ReviewsDesc>{content}</ReviewsDesc>
             </ListItemReviews>
           ))}
         </ul>

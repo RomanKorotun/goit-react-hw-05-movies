@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom';
-import { Message } from './NotFoundMessage.styled';
+import { Container, MainSection } from 'components/Layout/Layout.stylled';
+import { LinkStyled, Message } from './NotFoundMessage.styled';
 
 export const NotFoundMessage = () => {
   return (
-    <Message>
-      Такого маршруту не знайдено, перейдіть, будь-ласка, на
-      <Link to="/"> домашню сторінку!</Link>
-    </Message>
+    <MainSection>
+      <Container>
+        <Message>
+          No such route was found, please go to&nbsp;
+          <LinkStyled to="/">home page!</LinkStyled>
+        </Message>
+      </Container>
+    </MainSection>
   );
 };
