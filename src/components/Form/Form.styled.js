@@ -4,11 +4,13 @@ export const Input = styled.input`
   width: 180px;
   border: none;
   outline: none;
+  font-size: 20px;
   border-bottom: 2px solid black;
   color: white;
   background-color: transparent;
   @media only screen and (min-width: 768px) {
     width: 280px;
+    font-size: 26px;
   }
 `;
 
