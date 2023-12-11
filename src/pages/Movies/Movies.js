@@ -4,7 +4,7 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { Error } from 'components/Error.styled';
 import { useSearchParams } from 'react-router-dom';
 import { Form } from 'components/Form/Form';
-import { BeatLoaderStyled, Button } from './Movies.styled';
+import { BeatLoaderStyled, Button, Info } from './Movies.styled';
 
 export default function Movies() {
   const [loading, setLoading] = useState(false);
@@ -12,6 +12,7 @@ export default function Movies() {
   const [moviesList, setMoviesList] = useState([]);
   const [visibleLoadMore, setVisibleLoadMore] = useState(false);
   const [page, setPage] = useState(1);
+  const [isEmpty, setIsEmpty] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
 
@@ -31,7 +32,13 @@ export default function Movies() {
       try {
         setError(false);
         setLoading(true);
+        setIsEmpty(false);
         const data = await serviceSearchMovies(query, page);
+        setIsEmpty(() => {
+          if (data.results.length === 0) {
+            return true;
+          }
+        });
         setMoviesList(prevState => [...prevState, ...data.results]);
         setVisibleLoadMore(page < data.total_pages);
       } catch (error) {
@@ -50,6 +57,9 @@ export default function Movies() {
   return (
     <React.Fragment>
       <Form onSubmit={onSubmit} />
+      {isEmpty && (
+        <Info>Your search did not match anything. Please try again.</Info>
+      )}
       {error && <Error>Error... Please reload the page!</Error>}
       {moviesList.length > 0 && <MoviesList moviesList={moviesList} />}
       {(loading && <BeatLoaderStyled color="#36d7b7" />) ||

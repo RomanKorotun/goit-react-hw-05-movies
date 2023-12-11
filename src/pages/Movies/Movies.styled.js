@@ -37,3 +37,16 @@ export const BeatLoaderStyled = styled(BeatLoader)`
   margin-top: 70px;
   text-align: center;
 `;
+
+export const Info = styled.div`
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  @media only screen and (min-width: 428px) {
+    font-size: 40px;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    font-size: 50px;
+  }
+`;

@@ -4,8 +4,6 @@ export const Message = styled.div`
   color: white;
   font-size: 30px;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
 
   @media only screen and (min-width: 428px) {
     font-size: 40px;
